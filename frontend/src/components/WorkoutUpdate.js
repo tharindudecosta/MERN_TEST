@@ -7,6 +7,8 @@ const UpdateWorkout = () => {
   const [load, setLoad] = useState("");
   const [reps, setReps] = useState("");
   const [error, setError] = useState(null);
+  const [emptyFields, setEmptyFields] = useState([])
+
   const { id } = useParams();
   let navigate = useNavigate();
   
@@ -45,23 +47,26 @@ const UpdateWorkout = () => {
 
     if (!response.ok) {
       setError(json.error);
+      setEmptyFields(json.emptyFields)
     }
     if (response.ok) {
       console.log("workout updated:", json);
+      navigate('/');
     }
-    navigate('/');
+    
   };
 
   //update form component
   return (
     <form className="create">
-      <h3>Add a New Workout</h3>
+      <h3>Update Workout</h3>
 
       <label>Excersize Title:</label>
       <input
         type="text"
         onChange={(e) => setTitle(e.target.value)}
         value={title}
+        className={emptyFields.includes('title') ? 'error':''}
       />
 
       <label>Load (in kg):</label>
@@ -69,6 +74,7 @@ const UpdateWorkout = () => {
         type="number"
         onChange={(e) => setLoad(e.target.value)}
         value={load}
+        className={emptyFields.includes('load') ? 'error':''}
       />
 
       <label>Number of Reps:</label>
@@ -76,6 +82,7 @@ const UpdateWorkout = () => {
         type="number"
         onChange={(e) => setReps(e.target.value)}
         value={reps}
+        className={emptyFields.includes('reps') ? 'error':''}
       />
 
       <button onClick={handleSubmit}>Update Workout</button>

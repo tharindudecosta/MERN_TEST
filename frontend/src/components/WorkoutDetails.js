@@ -1,8 +1,7 @@
-import { useNavigate } from "react-router-dom";
+import { useWorkoutsContext } from "../hooks/useWorkoutsContext";
 
 const WorkoutDetails = ({ workout }) => {
-
-    let navigate = useNavigate();
+  const {dispatch} = useWorkoutsContext()
 
   const handleClick = async (e) => {
     e.preventDefault();
@@ -13,7 +12,7 @@ const WorkoutDetails = ({ workout }) => {
 
     if (response.ok) {
       console.log("Workout delete", json);
-      navigate('/')
+      dispatch({type:'DELETE_WORKOUT',payload:json})
     }
   };
 
@@ -37,7 +36,7 @@ const WorkoutDetails = ({ workout }) => {
         Delete
       </button>
       <a href={"./WorkoutUpdate/" + workout._id}>
-        <button className="redButton">Update</button>
+        <button className="blueButton">Update</button>
       </a>
     </div>
   );

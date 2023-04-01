@@ -4,7 +4,8 @@
 /* layout */
 :root {
   --primary: #1aac83;
-  --error: #e7195a;
+  /* --error: #e7195a; */
+  --error: #FF0000;
 }
 body {
   background: #f1f1f1;
@@ -97,8 +98,9 @@ div.error {
   border-radius: 4px;
   margin: 20px 0;
 }
-
-
+input.error {
+  border: 1px solid var(--error);
+}
 
 
 .redButton {
@@ -119,6 +121,29 @@ div.error {
 	background-color:#bd2a31;
 }
 .redButton:active {
+	position:relative;
+	top:1px;
+}
+
+
+.blueButton {
+	background-color:#0e9cc7;
+	border-radius:28px;
+	border:2px solid #0a6480;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:Arial;
+	font-size:12px;
+	padding:9px 14px;
+	text-decoration:none;
+	text-shadow:0px 1px 0px #0a6480;
+  margin: 10px;
+}
+.blueButton:hover {
+	background-color:#0a6480;
+}
+.blueButton:active {
 	position:relative;
 	top:1px;
 }
