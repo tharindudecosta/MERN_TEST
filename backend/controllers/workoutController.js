@@ -1,4 +1,5 @@
 const Workout = require("../models/workoutModel")
+const recordsCount = require("../models/recordsCount")
 const mongoose = require("mongoose")
 
 // get all workouts
@@ -44,6 +45,9 @@ const createWorkout = async (req, res) => {
         const workout = await Workout.create({
             title, load, reps
         })
+       
+        await recordsCount.updateOne({"collectionName":"Workouts"},{$inc:{count:1}})
+
         res.status(200).json(workout)
     }
     catch (error) {
@@ -90,8 +94,6 @@ const updateWorkout = async(req,res)=>{
     if(emptyFields.length>0){
         return res.status(400).json({error:'Please fill all the fields : '+ emptyFields,emptyFields})
     }
-
-
 
     const workout = await Workout.findByIdAndUpdate({_id: id},{
         ...req.body
