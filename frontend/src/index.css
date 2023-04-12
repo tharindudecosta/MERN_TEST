@@ -147,3 +147,46 @@ input.error {
 	position:relative;
 	top:1px;
 }
+
+nav {
+  display: flex;
+  align-items: center;
+}
+nav a {
+  margin-left: 10px;
+}
+
+nav button {
+  background: #fff;
+  color: var(--primary);
+  border: 2px solid var(--primary);
+  padding: 6px 10px;
+  border-radius: 4px;
+  font-family: "Poppins";
+  cursor: pointer;
+  font-size: 1em;
+}
+
+
+/* auth forms */
+form.signup, form.login {
+  max-width: 400px;
+  margin: 40px auto;
+  padding: 20px;
+  background: #fff;
+  border-radius: 4px;
+}
+
+.chkBox {
+  padding: 10px;
+  margin-top: 10px;
+  margin-bottom: 20px;
+  width: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  box-sizing: border-box;
+  position: relative;
+  display: inline;
+  width: 20px;
+  height: 20px;
+}
