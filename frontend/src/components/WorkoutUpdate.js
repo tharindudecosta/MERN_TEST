@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import {useAuthContext} from '../hooks/useAuthContext'
 
 const UpdateWorkout = () => {
   const [title, setTitle] = useState("");
@@ -11,11 +12,23 @@ const UpdateWorkout = () => {
 
   const { id } = useParams();
   let navigate = useNavigate();
-  
+  const {user} = useAuthContext()
+
   //fetch current information to a form
   useEffect(() => {
+
+    if(!user){
+      setError("You must be logged in")
+      return;
+    }
+    setError(null)
+
     const fetchWorkout = async () => {
-      fetch(`/api/workouts/${id}`)
+      fetch(`/api/workouts/${id}`,{
+        headers:{
+          'Authorization':`Bearer ${user.token}`
+        }
+      })
         .then((response) => response.json())
         .then((data) => {
           console.log(data);
@@ -28,11 +41,16 @@ const UpdateWorkout = () => {
         });
     };
     fetchWorkout();
-  }, [id]);
+  }, [id,user]);
 
   //send the updated information
   const handleSubmit = async (e) => {
     e.preventDefault();
+    
+    if(!user){
+      setError("You must be logged in")
+      return;
+    }
     
     const workout = { title, load, reps };
 
@@ -41,6 +59,7 @@ const UpdateWorkout = () => {
       body: JSON.stringify(workout),
       headers: {
         "Content-Type": "application/json",
+        'Authorization':`Bearer ${user.token}`
       },
     });
     const json = await response.json();
